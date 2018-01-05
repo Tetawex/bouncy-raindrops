@@ -1,4 +1,4 @@
-package org.tetawex.kctd
+package org.tetawex.kctd.app
 
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.assets.AssetManager
@@ -13,18 +13,16 @@ import com.github.czyzby.lml.util.LmlApplicationListener
 import ktx.inject.Context
 
 class KCTDGame : LmlApplicationListener() {
-    val context = Context() //Not an android context
+    val context = Context() //TODO: Possibly replace with a wrapper class
     lateinit var batch: Batch
 
     override fun create() {
         batch = SpriteBatch()
         initInjectorContext()
+
     }
 
-    override fun createParser(): LmlParser =
-            Lml.parser()
-                    .i18nBundle(context.inject())
-                    .build()
+    override fun createParser(): LmlParser = context.inject()
 
     override fun render() {
         Gdx.gl.glClearColor(0f, 0f, 0f, 1f)
@@ -34,16 +32,23 @@ class KCTDGame : LmlApplicationListener() {
     }
 
     override fun dispose() {
-        batch.dispose()
+        context.dispose()
     }
 
+    //TODO: Refactor to another place; maybe use Kodein, Koin or even Dagger 2 instead of ktx-inject
     private fun initInjectorContext() {
         context.register {
-            bindSingleton(batch)
-            bindSingleton(RandomXS128().let { it.setSeed(123) })
-            bindSingleton(I18NBundle
-                    .createBundle(Gdx.files.internal("assets/i18n")))
-            bindSingleton(AssetManager().let { it.loadedAssets })//TODO: insert init code
+            bind<Batch> { batch }
+            bindSingleton { RandomXS128().let { it.setSeed(123) } }
+            bindSingleton {
+                I18NBundle.createBundle(Gdx.files.internal("i18n/bundle"))
+            }
+            bindSingleton { AssetManager().let { it.loadedAssets } }//TODO: insert init code
+            bindSingleton {
+                Lml.parser()
+                        .i18nBundle(inject())
+                        .build()
+            }
         }
     }
 }

@@ -3,7 +3,7 @@ package org.tetawex.kctd;
 import com.badlogic.gdx.backends.iosmoe.IOSApplication;
 import com.badlogic.gdx.backends.iosmoe.IOSApplicationConfiguration;
 import org.moe.natj.general.Pointer;
-import org.tetawex.kctd.KCTDGame;
+import org.tetawex.kctd.app.KCTDGame;
 
 import apple.uikit.c.UIKit;
 

@@ -1,32 +1,31 @@
 package org.tetawex.kctd.utils
 
 import com.badlogic.gdx.Gdx
+import com.badlogic.gdx.graphics.Texture
+import com.badlogic.gdx.tools.texturepacker.TexturePacker
 import com.badlogic.gdx.utils.GdxRuntimeException
-import com.badlogic.gdx.utils.I18NBundle
+import com.github.czyzby.lml.parser.LmlParser
 import com.github.czyzby.lml.parser.impl.tag.Dtd
-import com.github.czyzby.lml.util.Lml
 
-import java.io.Writer
 
 object Packer {
     @JvmStatic
     fun main(args: Array<String>) {
-        val parser = Lml
-                .parser()
-                .i18nBundle(I18NBundle.createBundle(
-                        Gdx.files.internal("assets/bundle")))
-                .build()
+        val settings = TexturePacker.Settings()
+        settings.filterMag = Texture.TextureFilter.MipMapLinearNearest
+        TexturePacker.process(settings, "assets/textures", "assets", "atlas")
+    }
+
+    fun saveDtdSchema(parser: LmlParser) {
         parser.isStrict = false
 
         try {
-            val writer = Gdx.files.absolute("lml.dtd")
+            val writer = Gdx.files.internal("lml.dtd")
                     .writer(false)
             Dtd.saveSchema(parser, writer)
             writer.close()
         } catch (exception: Exception) {
             throw GdxRuntimeException(exception)
         }
-
     }
-
 }
