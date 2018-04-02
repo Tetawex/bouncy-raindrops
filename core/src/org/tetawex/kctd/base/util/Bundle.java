@@ -8,13 +8,13 @@ import java.util.Map;
  */
 public class Bundle {
 
-    public static Bundle fromSingleValue(String key, Bundle value) {
+    public static Bundle fromSingleValue(String key, Object value) {
         Bundle bundle = new Bundle();
         bundle.putItem(key, value);
         return bundle;
     }
 
-    public static Bundle fromDoubleValue(String key1, Bundle val1, String key2, Bundle val2) {
+    public static Bundle fromDoubleValue(String key1, Object val1, String key2, Object val2) {
         Bundle bundle = new Bundle();
         bundle.putItem(key1, val1);
         bundle.putItem(key2, val2);
