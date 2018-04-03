@@ -67,7 +67,6 @@ class Raindrop(val initialImpulse: Vector2, val size: Int, val spawnPos: Vector2
                     Box2dScalingUtil.getDescaled(spawnPos.y)), 0f)
             body.applyLinearImpulse(initialImpulse, Vector2(0f, 0f), true)
             body.isActive = true
-            Gdx.app.log("" + body.position.x, "" + body.position.y)
         })
     }
 

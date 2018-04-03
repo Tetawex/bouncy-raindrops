@@ -59,7 +59,6 @@ class GameScreen(game: KCTDGame, bundle: Bundle) : BaseScreen(game, bundle) {
         table.add().growX()
         table.add(scoreBoard).row()
         table.add().expand()
-        table.debug = true
 
         stage + table
 

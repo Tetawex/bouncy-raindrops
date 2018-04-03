@@ -33,8 +33,7 @@ class Player(game: KCTDGame, val world: World) : GameObject(game = game), Contac
     }
 
     override fun onReceived(other: Body) {
-        if ((other.userData as ContactReceiver).tag == Tag.DROP)
-            Gdx.app.log("poke", "oh-hoh")
+        //if ((other.userData as ContactReceiver).tag == Tag.DROP)
     }
 
     val animation: Animation<TextureRegion>
