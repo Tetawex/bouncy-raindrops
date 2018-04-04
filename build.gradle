@@ -54,8 +54,8 @@ project(":desktop") {
 }
 
 project(":android") {
-
     apply plugin: "android"
+
 
     configurations { natives }
 
@@ -93,8 +93,6 @@ project(":ios") {
         compile "com.badlogicgames.gdx:gdx-backend-robovm:$gdxVersion"
         compile "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-ios"
         compile "com.badlogicgames.gdx:gdx-box2d-platform:$gdxVersion:natives-ios"
-       //compile "com.badlogicgames.gdx:gdx-freetype-platform:$gdxVersion:natives-ios"
-        
     }
 }
 
@@ -103,7 +101,10 @@ project(":core") {
 
 
     dependencies {
-        compile 'com.badlogicgames.gdx:gdx-tools:1.9.7'
+        compile('com.badlogicgames.gdx:gdx-tools:1.9.7') {
+            exclude group: 'com.badlogicgames.gdx', module: 'gdx-freetype-platform'
+            exclude group: 'com.badlogicgames.gdx', module: 'gdx-platform'
+        }
         compile "com.badlogicgames.gdx:gdx:$gdxVersion"
         compile "com.badlogicgames.gdx:gdx-box2d:$gdxVersion"
         //compile "com.badlogicgames.gdx:gdx-controllers:$gdxVersion"
